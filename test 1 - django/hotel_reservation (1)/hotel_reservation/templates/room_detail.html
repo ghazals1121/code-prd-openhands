@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Room {{ room.number }}{% endblock %}
+
+{% block content %}
+<h1>Room {{ room.number }}</h1>
+<p><strong>Type:</strong> {{ room.get_room_type_display }}</p>
+<p><strong>Capacity:</strong> {{ room.capacity }} guests</p>
+<p><strong>Price:</strong> ${{ room.price_per_night }}/night</p>
+<p>{{ room.description }}</p>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'book-room' room.pk %}" class="btn">Book This Room</a>
+{% else %}
+    <a href="{% url 'login' %}" class="btn">Login to Book</a>
+{% endif %}
+{% endblock %}

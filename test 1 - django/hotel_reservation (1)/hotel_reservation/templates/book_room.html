@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Book Room {{ room.number }}{% endblock %}
+
+{% block content %}
+<h1>Book Room {{ room.number }}</h1>
+<p>{{ room.get_room_type_display }} · ${{ room.price_per_night }}/night</p>
+
+<form method="post">
+    {% csrf_token %}
+    <label>Check-in <input type="date" name="check_in" required id="check_in"></label>
+    <label>Check-out <input type="date" name="check_out" required id="check_out"></label>
+    <label>Guests <input type="number" name="guests" value="1" min="1" max="{{ room.capacity }}"></label>
+    <button type="submit" class="btn">Confirm Booking</button>
+</form>
+{% endblock %}

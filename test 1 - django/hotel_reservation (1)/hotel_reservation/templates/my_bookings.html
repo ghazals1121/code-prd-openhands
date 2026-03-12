@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}My Bookings{% endblock %}
+
+{% block content %}
+<h1>My Bookings</h1>
+
+{% for b in bookings %}
+<div class="card">
+    <h3>Room {{ b.room.number }} — {{ b.room.get_room_type_display }}</h3>
+    <p>{{ b.check_in }} → {{ b.check_out }} ({{ b.nights }} nights)</p>
+    <p>Total: ${{ b.total_price }} · Status: <strong>{{ b.status }}</strong></p>
+    {% if b.status == "confirmed" %}
+        <form method="post" action="{% url 'cancel-booking' b.pk %}" style="display:inline">
+            {% csrf_token %}
+            <button class="btn btn-danger" onclick="return confirm('Cancel?')">Cancel</button>
+        </form>
+    {% endif %}
+</div>
+{% empty %}
+<p>No bookings yet.</p>
+{% endfor %}
+{% endblock %}

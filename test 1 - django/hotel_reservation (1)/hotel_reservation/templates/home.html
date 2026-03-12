@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Rooms{% endblock %}
+
+{% block content %}
+<h1>Available Rooms</h1>
+<div class="room-grid">
+    {% for room in rooms %}
+    <div class="card">
+        <h3>Room {{ room.number }}</h3>
+        <p>{{ room.get_room_type_display }} · {{ room.capacity }} guests</p>
+        <p class="price">${{ room.price_per_night }}/night</p>
+        <a href="{% url 'room-detail' room.pk %}" class="btn">View</a>
+    </div>
+    {% empty %}
+    <p>No rooms available.</p>
+    {% endfor %}
+</div>
+{% endblock %}
